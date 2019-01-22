@@ -1,0 +1,11 @@
+<!-- play ros topic and run save image node -->
+<launch>
+  <node name="bag_play" pkg="rosbag" type="play" args="/home/nvidia/dataset/2018-12-21-08-30-54.bag -r 1 -l"/>
+
+  <arg name="compressed_image" default= "/mv_26806346/image_raw"/>
+  <arg name="converted_image" default="/camera/image_raw" />
+
+  <node name="image_converter" pkg="image_transport" type="republish" output="screen"
+    args="compressed in:=$(arg compressed_image) raw out:=$(arg converted_image)" />
+  
+</launch>

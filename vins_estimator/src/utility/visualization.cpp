@@ -11,6 +11,7 @@ ros::Publisher pub_camera_pose;
 ros::Publisher pub_camera_pose_visual;
 nav_msgs::Path path, relo_path;
 
+ros::Publisher pub_start;
 ros::Publisher pub_keyframe_pose;
 ros::Publisher pub_keyframe_point;
 ros::Publisher pub_extrinsic;
@@ -31,6 +32,7 @@ void registerPub(ros::NodeHandle &n)
     pub_key_poses = n.advertise<visualization_msgs::Marker>("key_poses", 1000);
     pub_camera_pose = n.advertise<nav_msgs::Odometry>("camera_pose", 1000);
     pub_camera_pose_visual = n.advertise<visualization_msgs::MarkerArray>("camera_pose_visual", 1000);
+    pub_start = n.advertise<std_msgs::Bool>("start", 1000);
     pub_keyframe_pose = n.advertise<nav_msgs::Odometry>("keyframe_pose", 1000);
     pub_keyframe_point = n.advertise<sensor_msgs::PointCloud>("keyframe_point", 1000);
     pub_extrinsic = n.advertise<nav_msgs::Odometry>("extrinsic", 1000);
@@ -343,6 +345,13 @@ void pubTF(const Estimator &estimator, const std_msgs::Header &header)
     odometry.pose.pose.orientation.w = tmp_q.w();
     pub_extrinsic.publish(odometry);
 
+}
+
+void pubStart(const Estimator &estimator, const std_msgs::Header &header)
+{
+    std_msgs::Bool start;
+    start.data = estimator.start_;
+    pub_start.publish(start);
 }
 
 void pubKeyframe(const Estimator &estimator)

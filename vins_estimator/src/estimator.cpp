@@ -1,6 +1,7 @@
 #include "estimator.h"
 
-Estimator::Estimator(): f_manager{Rs}
+Estimator::Estimator(): f_manager{Rs},
+    start_(false)
 {
     ROS_INFO("init begins");
     clearState();
@@ -169,6 +170,7 @@ void Estimator::processImage(const map<int, vector<pair<int, Eigen::Matrix<doubl
                 last_P = Ps[WINDOW_SIZE];
                 last_R0 = Rs[0];
                 last_P0 = Ps[0];
+                start_ = true;
                 
             }
             else

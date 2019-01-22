@@ -323,6 +323,7 @@ void process()
             pubCameraPose(estimator, header);
             pubPointCloud(estimator, header);
             pubTF(estimator, header);
+            pubStart(estimator, header);
             pubKeyframe(estimator);
             if (relo_msg != NULL)
                 pubRelocalization(estimator);

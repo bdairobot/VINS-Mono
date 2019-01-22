@@ -122,6 +122,8 @@ class Estimator
     map<double, ImageFrame> all_image_frame;
     IntegrationBase *tmp_pre_integration;
 
+    bool start_;
+
     //relocalization variable
     bool relocalization_info;
     double relo_frame_stamp;
